@@ -1,7 +1,14 @@
+import {createUser, findUser, validatePassword} from '../../../../../lib/user';
+import { setLoginSession, getLoginSession } from '../../../../../lib/auth';
+
 export default async (req, res) => {
-  
-    const { slug, capitulo } = req.query;
     
+    const session = await getLoginSession(req);
+
+    const { slug, capitulo } = req.query;
+
+    console.log(req)
+
     if (req.method === 'GET') {
 
         res.status(200).json({
@@ -9,7 +16,10 @@ export default async (req, res) => {
             slug: slug,
             capitulo: capitulo
         });
+
     }
+    
+    
 
 
 }
