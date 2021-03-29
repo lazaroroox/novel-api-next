@@ -30,7 +30,6 @@ export default async (req, res) => {
         } else if (req.method === 'POST') {
             
             const novel = await adicionarNovel(req);
-            
             if (novel) {
                 res.status(200).json({
                     status: 'sucesso',
