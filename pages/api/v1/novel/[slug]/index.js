@@ -45,7 +45,7 @@ export default async (req, res) => {
                 const categorias_id = [];
                 for (const final of _categorias) {
 
-                    const cat = await verCategoriasID(final.categoria_id);
+                    const cat = await verCategoriaID(final.categoria_id);
                     const cat1 = cat[0];                    
                     categoria.push(cat1);
                 }
