@@ -10,6 +10,7 @@
   "dependencies": {
     "@hapi/iron": "^6.0.0",
     "cookie": "^0.4.1",
+    "cors": "^2.8.5",
     "date-fns": "^2.11.1",
     "gray-matter": "^4.0.2",
     "moment": "^2.29.1",
@@ -19,6 +20,7 @@
     "remark": "^12.0.0",
     "remark-html": "^12.0.0",
     "serverless-mysql": "^1.5.4",
+    "slugify": "^1.5.0",
     "sql-template-strings": "^2.2.2",
     "uuid": "^8.3.2"
   }
