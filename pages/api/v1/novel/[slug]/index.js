@@ -25,15 +25,15 @@ export default async (req, res) => {
 
             const _novel = await verNovel(slug);
             const novel = _novel[0];
-            
-            //const _autor = await verAutorID(novel.autor);
-            const autor = [];//_autor[0];
-            //const _tipo = await verTipoID(novel.tipo);
-            const tipo = [];//_tipo[0]
-           // const _origem = await verOrigemID(novel.origem);
-            const origem = [];//_origem[0];
-            //const _status = await verStatusID(novel.status);
-            const status = [];//_status[0];
+
+            const _autor = await verAutorID(novel.autor);
+            const autor = _autor[0];
+            const _tipo = await verTipoID(novel.tipo);
+            const tipo = _tipo[0]
+            const _origem = await verOrigemID(novel.origem);
+            const origem = _origem[0];
+            const _status = await verStatusID(novel.status);
+            const status = _status[0];
             const avaliacao = {
                 quantidade: 4004
             };
@@ -45,8 +45,9 @@ export default async (req, res) => {
                 const categorias_id = [];
                 for (const final of _categorias) {
 
-                    //const cat = await verCategoriasID(final.categoria_id);        
-                    categoria.push(final.categoria_id);
+                    const cat = await verCategoriasID(final.categoria_id);
+                    const cat1 = cat[0];                    
+                    categoria.push(cat1);
                 }
             }
 
