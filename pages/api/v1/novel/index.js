@@ -1,4 +1,4 @@
-import { adicionarNovel, verNovel, editarNovel, novelItem, todosNovel } from '../../../../lib/novel';
+import { adicionarNovel, verNovel, editarNovel, novelItem, todosNovel, categorias } from '../../../../lib/novel';
 
 export default async (req, res) => {
 
@@ -35,7 +35,9 @@ export default async (req, res) => {
         const resultado = [];
 
         for (const final of novel) {
-            const ff = await novelItem(final);
+           // const cat = await categorias(final.id);
+            //console.log(cat);
+            const ff = novelItem(final);
             resultado.push(ff);
         }
 
