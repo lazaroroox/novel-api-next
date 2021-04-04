@@ -1,15 +1,16 @@
 import { createUser, findUser, validatePassword } from '../../../../../lib/user';
-import {adicionarNovel, verNovel, editarNovel, categorias} from '../../../../../lib/novel';
+import {adicionarNovel, verNovel, editarNovel, categorias, tags} from '../../../../../lib/novel';
 import { setLoginSession, getLoginSession } from '../../../../../lib/auth';
 import { verCategoriaID } from '../../../../../lib/categoria';
+import { verTagID } from '../../../../../lib/tag';
 import { verAutorID } from '../../../../../lib/autor';
 import { verTipoID } from '../../../../../lib/tipo';
 import { verOrigemID } from '../../../../../lib/origem';
 import { verStatusID } from '../../../../../lib/status';
+import { totalAvaliacao } from '../../../../../lib/avaliacao';
 export default async (req, res) => {
   
     const { slug } = req.query;
-    const { asd } = req.body;
   //  console.log(asd);
  //   const user = await findUser({ email: 'lazarobransford@gmail.com' });
    // console.log(user, await validatePassword(user, 'Icarus99'));
@@ -34,21 +35,26 @@ export default async (req, res) => {
             const origem = _origem[0];
             const _status = await verStatusID(novel.status);
             const status = _status[0];
-            const avaliacao = {
-                quantidade: 4004
-            };
-            const tags = [];
+            const _avaliacao = await totalAvaliacao(novel.id);
+            const avaliacao = _avaliacao[0].total;
+            const tag = [];
             const categoria = [];
 
             const _categorias = await categorias(novel.id);
-            if (_categorias) {
-                const categorias_id = [];
-                for (const final of _categorias) {
+            const _tags = await tags(novel.id);
 
-                    const cat = await verCategoriaID(final.categoria_id);
-                    const cat1 = cat[0];                    
-                    categoria.push(cat1);
-                }
+            for (const final of _categorias) {
+
+                const cat = await verCategoriaID(final.categoria_id);
+                const cat1 = cat[0];                    
+                
+                categoria.push(cat1);
+            }
+
+            for (const final of _tags) {
+                const ta = await verTagID(final.tag_id);
+                const ta1 = ta[0];
+                tag.push(ta1);
             }
 
             const resultado = {
@@ -78,12 +84,12 @@ export default async (req, res) => {
                     nome: status.nome,
                     slug: status.slug
                 },
+                categorias: categoria,
+                tags: tag,
                 avaliacao: {
                     score: novel.avaliacao,
-                    avaliacoes: avaliacao.quantidade
+                    total: novel.totalAvaliacao
                 },
-                categorias: categoria,
-                tags: tags,
                 visualizacao: novel.visualizacao,
                 criado: novel.criadoEm,
                 atualizado: novel.atualizadoEm
